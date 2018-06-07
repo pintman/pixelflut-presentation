@@ -36,6 +36,16 @@
 
 				<section data-markdown>
 					<textarea data-template>
+					## CCC Göttingen
+
+					- Ein Projekt des CCC Göttingen
+					- Beliebt auf vielen Hackerveranstaltungen
+					- https://cccgoe.de/wiki/Pixelflut
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
 					## Protokoll
 
 					    SIZE
@@ -49,6 +59,21 @@
 
 					    $ echo PX 10 20 ff0000 | nc pixelflutserver
 					</textarea>
+				</section>
+
+				<section>
+					<h2>Python Client</h2>
+					<pre><code class="python" data-trim data-noescape>
+						import socket
+						
+						HOST="localhost"
+						PORT=1337
+
+						sock = socket.socket()
+						sock.connect((HOST, PORT))
+						sock.send(bytes("PX 10 10 ff0000\n", "utf8")
+						sock.close()
+					</code></pre>
 				</section>
 
 				<section>
