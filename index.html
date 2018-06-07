@@ -1,0 +1,155 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Pixelflut</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>Pixelflut</h1>
+				</section>
+
+				<section>
+					Demovideo einbinden
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+					## Protokoll
+
+					    SIZE
+					    PX X Y RRGGBB
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+					## Einfacher Client
+
+					    echo PX 10 20 ff0000 | nc pixelflutserver
+					</textarea>
+				</section>
+
+				<section>
+					<section>
+						<h1>Linie zeichnen</h1>						
+					</section>
+
+					<section>
+						<h2>Linie rekursiv zeichnen</h2>
+						<img src="strecke_zwischen_zwei_punkten.png" width="50%">
+						<pre class="stretch"><code class="python" data-trim data-noescape>
+							if Punkte a und b benachbart:
+								zeichne Pixel a und b
+							else:
+								berechne mittelpunkt m
+								zeichne Strecke von a bis m
+								zeichne Strecke von m bis b
+						</code></pre>
+					</section>
+
+					<section>
+						<h2>Linie als Vektorgleichung</h2>
+						<ul>
+							<li> (x,y) = (ax,ay) + r * (vx,vy)</li>
+							<li> (vx,vy) = (bx-ax, by-ay)</li>
+							<li> Parameter r zwischen 0 und 1 kontinuierlich verändern</li>
+						</ul>
+
+						<pre><code class="python" data-trim data-noescape>
+						    x = ax
+						    y = ay
+						    dist = Abstand zwischen a und b
+						    r = 0.0
+						    solange r < 1.0
+						        zeichne Pixel x, y
+						        r = r + 1/dist
+						</code></pre>
+					</section>
+
+					<section>
+						<h2>Bresenham-Algorithmus</h2>
+
+						<ul>
+							<li>Standard-Algorithmus von Jack Bresenham</li>
+							<li>1962 bei IHM entwickelt</li>
+							<li>Optimiert: wenige und einfache Operationen</li>
+							<li>schnelle und langsame Richtung</li>
+							<li>viele Fallunterscheidungen</li>
+							<li>z.B. x-Wert schrittweise verändern, y-Wert bei Bedarf anpassen</li>
+							<li>Wikipedia: <a href="https://de.wikipedia.org/wiki/Rasterung_von_Linien">Rasterung von Linien</a></li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Bresenham-Algorithmus 2</h2>
+						<div style="display:grid; grid-template-columns: auto auto;">
+							<div style="display:inline-grid">
+								<img src="Bresenham-Pitteway_pixel_choice.svg">
+							</div>
+							<div style="display:inline-grid">
+								<ul>
+									<li>Pixel N oder NO wählen</li>
+									<li>Punkt M betrachten und mit Ideallinie vergleichen: ober- oder unterhalb</li>
+									<li>F(x,y)=ax+by+c = dy x - dx y + c</li>
+									<li>Vorzeichen hilft bei Positionierung</li>
+								</ul>
+							</div>
+						</div>
+
+					</section>
+
+
+				</section>
+
+				<section>
+					<h2>Auftrag</h2>
+
+					<ul>
+						<li>Rekursiven Algorithmus umsetzen</li>
+						<li>Algorithmus mit Vektorgleichung umsetzen</li>
+						<li>Bresenham-Algorithmus recherchieren und umsetzen</li>
+					</ul>
+				</section>
+
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },					
+				]
+			});
+		</script>
+	</body>
+</html>
