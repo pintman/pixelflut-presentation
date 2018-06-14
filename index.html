@@ -48,7 +48,12 @@
 					<textarea data-template>
 					## Protokoll
 
+					Abfrage der Bildschirmdimensionen
+
 					    SIZE
+
+					Setzen eines Pixel
+
 					    PX X Y RRGGBB
 					</textarea>
 				</section>
@@ -83,14 +88,18 @@
 
 					<section>
 						<h2>Strecke rekursiv zeichnen</h2>
-						<img src="strecke_zwischen_zwei_punkten.png" width="50%">
+
+						<img src="strecke_zwischen_zwei_punkten.png" width="40%">
+
 						<pre class="stretch"><code class="python" data-trim data-noescape>
-							if Punkte a und b benachbart:
-								zeichne Pixel a und b
-							else:
-								berechne mittelpunkt m
-								zeichne Strecke von a bis m
-								zeichne Strecke von m bis b
+						function zeichne_strecke(a, b)
+						    if punkte_benachbart(a, b)
+						        zeichne_pixel(a)
+						        zeichne_pixel(b)
+						    else
+						        m = mittelpunkt_zwischen(a, b)
+						        zeichne_strecke(a, m)
+						        zeichne_strecke(m, b)
 						</code></pre>
 					</section>
 
@@ -103,12 +112,14 @@
 						</ul>
 
 						<pre><code class="python" data-trim data-noescape>
-						    x = ax
+						    x = ax	    
 						    y = ay
-						    dist = Abstand zwischen a und b
+						    vx = bx-ax  
+						    vy=by-ay
+						    dist = abstand(a, b)
 						    r = 0.0
 						    solange r < 1.0
-						        zeichne Pixel x, y
+						        zeichne_pixel(x + r*vx, y + r*vy)
 						        r = r + 1/dist
 						</code></pre>
 					</section>
@@ -129,11 +140,11 @@
 
 					<section>
 						<h2>Bresenham-Algorithmus 2</h2>
-						<div style="display:grid; grid-template-columns: auto auto;">
-							<div style="display:inline-grid">
+						<div class="stretch" style="display:grid; grid-template-columns: auto auto;">
+							<div>
 								<img src="Bresenham-Pitteway_pixel_choice.svg">
 							</div>
-							<div style="display:inline-grid">
+							<div>
 								<ul>
 									<li>Pixel N oder NO wählen</li>
 									<li>Punkt M betrachten und mit Ideallinie vergleichen: ober- oder unterhalb</li>
