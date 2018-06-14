@@ -115,10 +115,10 @@
 						    x = ax	    
 						    y = ay
 						    vx = bx-ax  
-						    vy=by-ay
+						    vy = by-ay
 						    dist = abstand(a, b)
 						    r = 0.0
-						    solange r < 1.0
+						    solange r <= 1.0
 						        zeichne_pixel(x + r*vx, y + r*vy)
 						        r = r + 1/dist
 						</code></pre>
